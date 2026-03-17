@@ -1,6 +1,7 @@
 const {
   addNewProduct,
   getProductsByCategoryService,
+  getAllProductsService,
 } = require("../services/productServices");
 
 const addProduct = async (req, res) => {
