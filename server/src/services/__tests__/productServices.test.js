@@ -1,6 +1,3 @@
-const prisma = require("../../db/prisma");
-const productServices = require("../productServices");
-
 jest.mock("../../db/prisma", () => ({
     product: {
         create: jest.fn(),
@@ -8,6 +5,9 @@ jest.mock("../../db/prisma", () => ({
         findMany: jest.fn(),
     },
 }));
+
+const prisma = require("../../db/prisma");
+const productServices = require("../productServices");
 
 describe("Product Services", () => {
     describe("addNewProduct", () => {

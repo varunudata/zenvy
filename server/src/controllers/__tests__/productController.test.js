@@ -1,8 +1,8 @@
-const productController = require("../productController");
-const productServices = require("../../services/productServices");
-
 // Mock the services
 jest.mock("../../services/productServices");
+
+const productController = require("../productController");
+const productServices = require("../../services/productServices");
 
 // Helper to mock Express req and res
 const mockResponse = () => {
