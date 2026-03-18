@@ -1,5 +1,10 @@
-// Mock the services
-jest.mock("../../services/productServices");
+// Mock the services with a factory to prevent auto-mock requiring the real file
+jest.mock("../../services/productServices", () => ({
+    addNewProduct: jest.fn(),
+    getProductsByCategoryService: jest.fn(),
+    getAllProductsService: jest.fn(),
+    getProducts: jest.fn(),
+}));
 
 const productController = require("../productController");
 const productServices = require("../../services/productServices");
