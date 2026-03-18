@@ -2,11 +2,19 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
 
 export default function Login() {
     const [isLogin, setIsLogin] = useState(true);
+    const router = useRouter();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Simulate API login processing then redirect
+        router.push("/shop");
+    };
 
     return (
         <div className="min-h-[80vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-white">
@@ -22,7 +30,7 @@ export default function Login() {
                     </p>
                 </div>
 
-                <form className="mt-12 space-y-8" onSubmit={(e) => e.preventDefault()}>
+                <form className="mt-12 space-y-8" onSubmit={handleSubmit}>
                     {!isLogin && (
                         <div className="space-y-6">
                             <Input
