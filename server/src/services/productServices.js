@@ -1,4 +1,4 @@
-const prisma = require("../db/prisma");
+const prisma = require('../db/prisma');
 
 const addNewProduct = async (data) => {
   const product = await prisma.product.create({
@@ -92,7 +92,7 @@ const getProducts = async ({
   if (search) {
     where.name = {
       contains: search,
-      mode: "insensitive",
+      mode: 'insensitive',
     };
   }
 
@@ -102,12 +102,12 @@ const getProducts = async ({
     if (maxPrice !== undefined) where.price.lte = maxPrice;
   }
 
-  const validSortFields = ["price", "name", "createdAt"];
-  const validOrder = ["asc", "desc"];
+  const validSortFields = ['price', 'name', 'createdAt'];
+  const validOrder = ['asc', 'desc'];
 
-  const safeSortBy = validSortFields.includes(sortBy) ? sortBy : "createdAt";
+  const safeSortBy = validSortFields.includes(sortBy) ? sortBy : 'createdAt';
 
-  const safeOrder = validOrder.includes(order) ? order : "desc";
+  const safeOrder = validOrder.includes(order) ? order : 'desc';
 
   const skip = (page - 1) * limit;
 

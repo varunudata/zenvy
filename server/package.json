@@ -8,7 +8,10 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.js",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.2.0",
@@ -19,7 +22,12 @@
     "pg": "^8.16.3"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.0.3",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
     "jest": "^30.3.0",
+    "prettier": "^3.8.1",
     "prisma": "^7.2.0"
   }
 }

@@ -1,6 +1,6 @@
-import Link from "next/link";
-import Button from "./components/ui/Button";
-import ProductCard from "./components/ui/ProductCard";
+import Link from 'next/link';
+import Button from './components/ui/Button';
+import ProductCard from './components/ui/ProductCard';
 
 export default function Home() {
   return (
@@ -9,10 +9,10 @@ export default function Home() {
       <section
         className="relative h-[90vh] flex items-center justify-center overflow-hidden"
         style={{
-          backgroundColor: "#f5f5f0",
+          backgroundColor: '#f5f5f0',
           backgroundImage: `url(https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1600&q=75)`,
-          backgroundSize: "cover",
-          backgroundPosition: "center top",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center top',
         }}
       >
         <div className="absolute inset-0 bg-white/40" />
@@ -25,7 +25,8 @@ export default function Home() {
             Define Your <br /> Elegance
           </h1>
           <p className="text-lg md:text-xl text-black/60 font-light max-w-2xl mx-auto mb-10 tracking-wide">
-            Curated pieces designed for longevity, blending minimalist form with exceptional craftsmanship.
+            Curated pieces designed for longevity, blending minimalist form with
+            exceptional craftsmanship.
           </p>
           <Link href="/shop">
             <Button variant="primary" size="lg" className="tracking-[0.2em]">
@@ -39,7 +40,9 @@ export default function Home() {
       <section className="py-24 md:py-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16">
           <div>
-            <h2 className="text-3xl font-medium tracking-tighter uppercase mb-4">New Arrivals</h2>
+            <h2 className="text-3xl font-medium tracking-tighter uppercase mb-4">
+              New Arrivals
+            </h2>
             <p className="text-[var(--color-muted-foreground)] tracking-wide">
               The latest additions to our curated selection.
             </p>
@@ -67,8 +70,8 @@ export default function Home() {
               className="relative aspect-[4/5] overflow-hidden"
               style={{
                 backgroundImage: `url(https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=900&q=75)`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
               }}
             />
             <div className="flex flex-col justify-center max-w-md mx-auto md:mx-0">
@@ -79,8 +82,8 @@ export default function Home() {
                 The Silhouette
               </h2>
               <p className="text-base text-[var(--color-muted-foreground)] leading-relaxed mb-10">
-                Discover pieces defined by precise cuts and fluid drape. A study in the beauty of
-                simplicity and the power of understatement.
+                Discover pieces defined by precise cuts and fluid drape. A study
+                in the beauty of simplicity and the power of understatement.
               </p>
               <Link href="/shop">
                 <Button variant="outline" size="md" className="w-fit">

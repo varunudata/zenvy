@@ -2,7 +2,8 @@ const {
   addNewProduct,
   getProductsByCategoryService,
   getAllProductsService,
-} = require("../services/productServices");
+  getProducts: getProductsService,
+} = require('../services/productServices');
 
 const addProduct = async (req, res) => {
   try {
@@ -10,7 +11,7 @@ const addProduct = async (req, res) => {
     if (!name || !price || !description || !quantity || !categoryId) {
       return res
         .status(400)
-        .json({ success: false, message: "All fields are required" });
+        .json({ success: false, message: 'All fields are required' });
     }
     const newProduct = await addNewProduct({
       name,
@@ -21,14 +22,14 @@ const addProduct = async (req, res) => {
     });
     return res.status(201).json({
       success: true,
-      message: "New product added successfully",
+      message: 'New product added successfully',
       data: newProduct,
     });
   } catch (error) {
-    console.log("Internal Server Error in adding product :", error);
+    console.log('Internal Server Error in adding product :', error);
     return res.status(500).json({
       success: false,
-      message: "Internal Server Error in adding product",
+      message: 'Internal Server Error in adding product',
     });
   }
 };
@@ -43,7 +44,7 @@ const getProductsByCategory = async (req, res) => {
     if (!parsedCategoryId || isNaN(parsedCategoryId)) {
       return res.status(400).json({
         success: false,
-        message: "Invalid categoryId",
+        message: 'Invalid categoryId',
       });
     }
     const products = await getProductsByCategoryService({
@@ -55,18 +56,18 @@ const getProductsByCategory = async (req, res) => {
       success: true,
       message:
         products.length === 0
-          ? "No products found for this category"
-          : "Products fetched successfully",
+          ? 'No products found for this category'
+          : 'Products fetched successfully',
       data: products,
     });
   } catch (error) {
     console.log(
-      "Internal Server Error in getting products by category:",
-      error,
+      'Internal Server Error in getting products by category:',
+      error
     );
     return res.status(500).json({
       success: false,
-      message: "Internal Server Error",
+      message: 'Internal Server Error',
     });
   }
 };
@@ -83,10 +84,10 @@ const getAllProducts = async (req, res) => {
       data: result,
     });
   } catch (error) {
-    console.log("Internal Server Error in getting all products:", error);
+    console.log('Internal Server Error in getting all products:', error);
     return res.status(500).json({
       success: false,
-      message: "Internal Server Error",
+      message: 'Internal Server Error',
     });
   }
 };
@@ -95,13 +96,13 @@ const getProductById = (req, res) => {
   try {
     const { id } = req.params.id;
     if (!id) {
-      return res.status(400).json({ success: false, message: "Invalid id" });
+      return res.status(400).json({ success: false, message: 'Invalid id' });
     }
   } catch (error) {
-    console.log("Internal Server Error in getting product by id :", error);
+    console.log('Internal Server Error in getting product by id :', error);
     return res.status(500).json({
       success: false,
-      message: "Internal Server Error in getting product by id",
+      message: 'Internal Server Error in getting product by id',
     });
   }
 };
@@ -118,7 +119,7 @@ const getProducts = async (req, res) => {
       order,
     } = req.query;
 
-    const result = await productService.getProducts({
+    const result = await getProductsService({
       page: Number(page),
       limit: Number(limit),
       search,
@@ -133,10 +134,10 @@ const getProducts = async (req, res) => {
       data: result,
     });
   } catch (error) {
-    console.error("Error fetching products:", error);
+    console.error('Error fetching products:', error);
     return res.status(500).json({
       success: false,
-      message: "Internal Server Error",
+      message: 'Internal Server Error',
     });
   }
 };
