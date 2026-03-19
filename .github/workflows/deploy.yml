@@ -19,21 +19,5 @@ jobs:
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
-          cd ~/zenvy  # Ensure this points to the absolute path of your app on the EC2 machine
-          git pull origin main
-          
-          # 1. Update Backend
-          cd server
-          npm install
-          npx prisma generate
-          
-          # Start or Restart backend using PM2
-          pm2 restart zenvy-server || pm2 start server.js --name zenvy-server
-          
-          # 2. Update Frontend
-          cd ../client
-          npm install
-          npm run build
-          
-          # Start or Restart Next.js using PM2
-          pm2 restart zenvy-client || pm2 start npm --name zenvy-client -- start
+          # The shell script is highly idempotent and handles graceful restarting/setup natively.
+          bash ~/zenvy/scripts/deploy.sh
