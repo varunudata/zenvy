@@ -19,5 +19,9 @@ jobs:
         username: ubuntu
         key: ${{ secrets.EC2_SSH_KEY }}
         script: |
-          # The shell script is highly idempotent and handles graceful restarting/setup natively.
-          bash ~/zenvy/scripts/deploy.sh
+          if [ ! -d "$HOME/zenvy" ]; then
+            git clone https://github.com/varunudata/zenvy.git $HOME/zenvy
+          fi
+          cd ~/zenvy
+          git pull origin main
+          bash scripts/deploy.sh
