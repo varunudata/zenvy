@@ -25,3 +25,4 @@ jobs:
           cd ~/zenvy
           git pull origin main
           bash scripts/deploy.sh
+ 

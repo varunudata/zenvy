@@ -19,7 +19,7 @@ echo "🚀 Deploying Backend Subservice"
 echo "----------------------------------------"
 cd server || exit
 npm ci
-npx prisma generate
+npx prisma generate 
 
 # Idempotently check PM2 status to either spin up brand new instance or gently restart an existing one
 if pm2 status zenvy-server | grep -q 'online'; then
