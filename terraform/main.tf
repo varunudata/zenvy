@@ -139,7 +139,7 @@ resource "aws_ecs_service" "client" {
 
   network_configuration {
     subnets          = data.aws_subnets.default.ids
-    security_groups  = [aws_security_group.ecs_tasks.id]
+    security_groups  = [data.aws_security_group.ecs_tasks.id]
     assign_public_ip = true
   }
 
@@ -157,7 +157,7 @@ resource "aws_ecs_service" "server" {
 
   network_configuration {
     subnets          = data.aws_subnets.default.ids
-    security_groups  = [aws_security_group.ecs_tasks.id]
+    security_groups  = [data.aws_security_group.ecs_tasks.id]
     assign_public_ip = true
   }
 
