@@ -52,17 +52,13 @@ resource "aws_s3_bucket_public_access_block" "my_bucket_public_access_block" {
   ignore_public_acls      = true
 }
 
-# --- ECR Repositories ---
-resource "aws_ecr_repository" "client" {
-  name                 = "zenvy-client"
-  image_tag_mutability = "MUTABLE"
-  force_delete         = true
+# --- ECR Repositories (Already created in previous run) ---
+data "aws_ecr_repository" "client" {
+  name = "zenvy-client"
 }
 
-resource "aws_ecr_repository" "server" {
-  name                 = "zenvy-server"
-  image_tag_mutability = "MUTABLE"
-  force_delete         = true
+data "aws_ecr_repository" "server" {
+  name = "zenvy-server"
 }
 
 # --- ECS Cluster ---
@@ -82,55 +78,14 @@ data "aws_subnets" "default" {
   }
 }
 
-# --- Security Group for ECS Tasks ---
-resource "aws_security_group" "ecs_tasks" {
-  name        = "zenvy-ecs-tasks-sg"
-  description = "Allow inbound access to client and server"
-  vpc_id      = data.aws_vpc.default.id
-
-  ingress {
-    from_port   = 3000
-    to_port     = 3000
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
-    from_port   = 4007
-    to_port     = 4007
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+# --- Security Group for ECS Tasks (Already created in previous run) ---
+data "aws_security_group" "ecs_tasks" {
+  name = "zenvy-ecs-tasks-sg"
 }
 
-# --- IAM Role for ECS Task Execution ---
-resource "aws_iam_role" "ecs_task_execution_role" {
-  name = "zenvyECSTaskExecutionRole"
-
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Principal = {
-          Service = "ecs-tasks.amazonaws.com"
-        }
-      }
-    ]
-  })
-}
-
-resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy" {
-  role       = aws_iam_role.ecs_task_execution_role.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+# --- IAM Role for ECS Task Execution (AWS Academy LabRole) ---
+data "aws_iam_role" "lab_role" {
+  name = "LabRole"
 }
 
 # --- Initial ECS Task Definitions (Dummy Images) ---
@@ -142,7 +97,7 @@ resource "aws_ecs_task_definition" "client" {
   requires_compatibilities = ["FARGATE"]
   cpu                      = 256
   memory                   = 512
-  execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
+  execution_role_arn       = data.aws_iam_role.lab_role.arn
 
   container_definitions = jsonencode([{
     name      = "zenvy-client-container"
@@ -161,7 +116,7 @@ resource "aws_ecs_task_definition" "server" {
   requires_compatibilities = ["FARGATE"]
   cpu                      = 256
   memory                   = 512
-  execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
+  execution_role_arn       = data.aws_iam_role.lab_role.arn
 
   container_definitions = jsonencode([{
     name      = "zenvy-server-container"
