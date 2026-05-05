@@ -19,8 +19,8 @@ env:
   CONTAINER_NAME_SERVER: zenvy-server-container
 
 jobs:
-  deploy:
-    name: Deploy
+  provision-and-deploy:
+    name: Provision Infrastructure and Deploy to ECS
     runs-on: ubuntu-latest
 
     steps:
@@ -34,6 +34,17 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
         aws-region: ${{ env.AWS_REGION }}
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: "1.5.0"
+
+    - name: Terraform Init and Apply
+      run: |
+        terraform init
+        terraform apply -auto-approve
+      working-directory: ./terraform
 
     - name: Login to Amazon ECR
       id: login-ecr
