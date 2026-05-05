@@ -12,6 +12,9 @@ RUN npm ci
 # Copy application source code
 COPY . .
 
+# Generate Prisma client
+RUN npx prisma generate
+
 # Remove devDependencies to keep the production image lean
 RUN npm prune --production
 
@@ -30,6 +33,9 @@ COPY --from=builder --chown=nodejs:nodejs /app ./
 
 # Switch to the non-root user
 USER nodejs
+
+# Force the application to use the expected port, ignoring local .env files
+ENV PORT=4007
 
 # Expose the application port
 EXPOSE 4007
