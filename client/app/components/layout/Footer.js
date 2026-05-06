@@ -68,7 +68,7 @@ export default function Footer() {
                   href="/shipping"
                   className="hover:text-black transition-colors"
                 >
-                  Shipping & Returns
+                  Shipping & Return
                 </Link>
               </li>
               <li>
